@@ -4,6 +4,7 @@ import org.esovisco.ligaflanek.commands.AddPointsCommand;
 import org.esovisco.ligaflanek.commands.AddTeamCommand;
 import org.esovisco.ligaflanek.domain.Team;
 import org.esovisco.ligaflanek.services.TeamService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ public class TeamController {
     }
 
     @PostMapping("/points/add")
+    @PreAuthorize("hasAuthority('points:write')")
     public String addPointsSubmit(@Valid AddPointsCommand addPointsCommand, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("teams", service.getTeams());
@@ -34,6 +36,7 @@ public class TeamController {
     }
 
     @PostMapping("/teams/add")
+    @PreAuthorize("hasAuthority('teams:write')")
     public String addTeamLogin(@Valid AddTeamCommand addTeamCommand, BindingResult result, Model model) {
         if(result.hasErrors()){
             model.addAttribute("error_message", "Nazwa zajęta lub nieprawidłowa!");
