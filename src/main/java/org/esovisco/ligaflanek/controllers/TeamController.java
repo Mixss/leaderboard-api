@@ -22,21 +22,21 @@ public class TeamController {
         this.service = service;
     }
 
-    @RequestMapping({"/teams"})
+    @RequestMapping({"/"})
     public String teams(Model model) {
         model.addAttribute("teams", service.getTeams());
         return "list_teams";
     }
 
 
-    @RequestMapping("/add")
+    @RequestMapping("/points/add")
     public String addPoints(Model model) {
         model.addAttribute("teams", service.getTeams());
         model.addAttribute("addPointsCommand", new AddPointsCommand());
         return "add_points";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/points/add")
     public String addPointsSubmit(@Valid AddPointsCommand addPointsCommand, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("teams", service.getTeams());

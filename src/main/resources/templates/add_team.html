@@ -6,7 +6,7 @@
 </head>
 <body>
     <form th:object="${addTeamCommand}" th:action="@{/teams/add}" method="post">
-        <label for="points">Nazwa drużyny:</label>
+        <label for="points">Team name:</label>
         <input type="text" id="points" name="points" th:field="*{teamName}">
         <div th:if="${error_message != null}" th:text="${error_message}"></div>
         <button type="submit">Dodaj</button>

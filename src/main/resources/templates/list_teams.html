@@ -13,8 +13,8 @@
 <table>
     <tr>
         <th>Id</th>
-        <th>Nazwa</th>
-        <th>Punkty</th>
+        <th>Team name</th>
+        <th>Points</th>
     </tr>
     <tr th:each="team : ${teams}">
         <th th:text="${team.id}">Id</th>
@@ -22,6 +22,6 @@
         <th th:text="${team.points}">Punkty</th>
     </tr>
 </table>
-<a href="add/">Dodaj punkty</a>
+<a href="add/">Add points</a>
 </body>
 </html>

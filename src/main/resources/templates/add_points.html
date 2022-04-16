@@ -7,15 +7,15 @@
 <body>
     <form
         th:object="${addPointsCommand}"
-        th:action="@{/add}"
+        th:action="@{/points/add}"
         method="post"
     >
-        <label for="teams">Wybierz drużynę:</label>
+        <label for="teams">Select team:</label>
         <select name="teams" id="teams" th:field="*{selectedTeam}">
             <option th:each="team : ${teams}" th:value="${team.name}" th:text="${team.name}" >Team</option>
         </select>
         <br>
-        <label for="points">Punkty do dodania:</label>
+        <label for="points">Points to add:</label>
         <input type="text" id="points" name="points" th:field="*{pointsToAdd}">
         <div th:if="${error_message != null}" th:text="${error_message}"></div>
         <button type="submit">Dodaj</button>
