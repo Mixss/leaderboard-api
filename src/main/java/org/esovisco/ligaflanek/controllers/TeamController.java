@@ -22,20 +22,6 @@ public class TeamController {
         this.service = service;
     }
 
-    @RequestMapping({"/"})
-    public String teams(Model model) {
-        model.addAttribute("teams", service.getTeams());
-        return "list_teams";
-    }
-
-
-    @RequestMapping("/points/add")
-    public String addPoints(Model model) {
-        model.addAttribute("teams", service.getTeams());
-        model.addAttribute("addPointsCommand", new AddPointsCommand());
-        return "add_points";
-    }
-
     @PostMapping("/points/add")
     public String addPointsSubmit(@Valid AddPointsCommand addPointsCommand, BindingResult result, Model model) {
         if(result.hasErrors()) {
@@ -44,13 +30,7 @@ public class TeamController {
             return "add_points";
         }
         service.addPointsCommand(addPointsCommand);
-        return "redirect:/teams";
-    }
-
-    @RequestMapping("/teams/add")
-    public String addNewTeam(Model model) {
-        model.addAttribute("addTeamCommand", new AddTeamCommand());
-        return "add_team";
+        return "redirect:/";
     }
 
     @PostMapping("/teams/add")
@@ -60,6 +40,6 @@ public class TeamController {
             return "add_points";
         }
         service.addTeam(new Team(addTeamCommand.getTeamName()));
-        return "redirect:/teams";
+        return "redirect:/";
     }
 }
