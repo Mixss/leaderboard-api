@@ -31,7 +31,7 @@ class UserServiceTest {
         String userName = "TestUser";
         User user = new User(1L, userName, ApplicationUserRole.USER);
 
-        doReturn(user).when(repository).findByName(userName);
+        doReturn(Optional.of(user)).when(repository).findByName(userName);
         assertThat(service.getUserByName(userName)).isEqualTo(user);
     }
 
