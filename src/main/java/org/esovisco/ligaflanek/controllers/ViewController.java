@@ -33,7 +33,7 @@ public class ViewController {
     }
 
     @RequestMapping("/teams/add")
-    @PreAuthorize("hasAuthority('teams:write')")
+    @PreAuthorize("hasAuthority('team:write')")
     public String addNewTeam(Model model) {
         model.addAttribute("addTeamCommand", new AddTeamCommand());
         return "add_team";

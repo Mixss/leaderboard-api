@@ -28,21 +28,34 @@ public class TeamController {
     public String addPointsSubmit(@Valid AddPointsCommand addPointsCommand, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("teams", service.getTeams());
-            model.addAttribute("error_message", "Podane wartości są nieprawidłowe!");
+            model.addAttribute("error_message", "Given values are wrong!");
             return "add_points";
         }
-        service.addPointsCommand(addPointsCommand);
+        try {
+            service.addPointsCommand(addPointsCommand);
+        }
+        catch (IllegalArgumentException e){
+            model.addAttribute("teams", service.getTeams());
+            model.addAttribute("error_message", "This team does not exists!");
+            return "add_points";
+        }
         return "redirect:/";
     }
 
     @PostMapping("/teams/add")
-    @PreAuthorize("hasAuthority('teams:write')")
+    @PreAuthorize("hasAuthority('team:write')")
     public String addTeamLogin(@Valid AddTeamCommand addTeamCommand, BindingResult result, Model model) {
         if(result.hasErrors()){
-            model.addAttribute("error_message", "Nazwa zajęta lub nieprawidłowa!");
+            model.addAttribute("error_message", "The name is invalid!");
             return "add_points";
         }
-        service.addTeam(new Team(addTeamCommand.getTeamName()));
+        try {
+            service.addTeam(new Team(addTeamCommand.getTeamName()));
+        }
+        catch (IllegalArgumentException e) {
+            model.addAttribute("error_message", "The name is already taken!");
+            return "add_points";
+        }
         return "redirect:/";
     }
 }

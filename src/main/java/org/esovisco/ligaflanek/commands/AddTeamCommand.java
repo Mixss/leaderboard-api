@@ -1,14 +1,12 @@
 package org.esovisco.ligaflanek.commands;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class AddTeamCommand {
     private String teamName;
 }

@@ -1,5 +1,6 @@
 package org.esovisco.ligaflanek.services;
 
+import org.esovisco.ligaflanek.commands.AddPointsCommand;
 import org.esovisco.ligaflanek.domain.Team;
 import org.esovisco.ligaflanek.repositories.TeamRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,18 +11,21 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 class TeamServiceTest {
 
     TeamService service;
     TeamRepository teamRepository;
     List<Team> teamList;
+    AddPointsCommand addPointsCommand;
 
     @BeforeEach
     public void before(){
         teamRepository = Mockito.mock(TeamRepository.class);
         teamList = List.of(new Team(1L, "Team1", 0), new Team(2L, "Team2", 0));
         service = new TeamService(teamRepository);
+        addPointsCommand = Mockito.mock(AddPointsCommand.class);
     }
 
     @Test
@@ -48,5 +52,11 @@ class TeamServiceTest {
         Mockito.doReturn(List.of(teamToAdd)).when(teamRepository).findAll();
         service.addTeam(teamToAdd);
         assertThat(service.getTeams()).isEqualTo(List.of(teamToAdd));
+    }
+
+    @Test
+    void addPointsCommandTeamNotFoundThrowsIllegalArgumentException(){
+        Mockito.doReturn(Optional.empty()).when(teamRepository).getTeamByName(any(String.class));
+        assertThatThrownBy(() -> service.addPointsCommand(addPointsCommand)).isInstanceOf(IllegalArgumentException.class);
     }
 }
