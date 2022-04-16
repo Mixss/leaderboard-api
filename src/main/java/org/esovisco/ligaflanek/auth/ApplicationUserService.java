@@ -23,6 +23,11 @@ public class ApplicationUserService implements UserDetailsService {
     }
 
     public void createUser(ApplicationUser user){
-        applicationUserDao.addUser(user);
+        try {
+            applicationUserDao.addUser(user);
+        } catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("Username taken!");
+        }
+
     }
 }

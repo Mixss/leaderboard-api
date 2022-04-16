@@ -2,6 +2,7 @@ package org.esovisco.ligaflanek.controllers;
 
 import org.esovisco.ligaflanek.commands.AddPointsCommand;
 import org.esovisco.ligaflanek.commands.AddTeamCommand;
+import org.esovisco.ligaflanek.commands.SignUpCommand;
 import org.esovisco.ligaflanek.services.TeamService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -37,5 +38,11 @@ public class ViewController {
     public String addNewTeam(Model model) {
         model.addAttribute("addTeamCommand", new AddTeamCommand());
         return "add_team";
+    }
+
+    @RequestMapping("register")
+    public String register(Model model){
+        model.addAttribute("signUpCommand", new SignUpCommand());
+        return "register";
     }
 }

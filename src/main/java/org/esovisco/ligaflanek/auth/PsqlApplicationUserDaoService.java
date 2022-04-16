@@ -21,6 +21,10 @@ public class PsqlApplicationUserDaoService implements ApplicationUserDao {
 
     @Override
     public void addUser(ApplicationUser user) {
+        Optional<ApplicationUser> optionalUser = repository.findByName(user.getUsername());
+        if(optionalUser.isPresent()){
+            throw new IllegalArgumentException("Username taken!");
+        }
         repository.save(user);
     }
 }

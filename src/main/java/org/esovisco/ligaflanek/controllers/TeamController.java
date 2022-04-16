@@ -21,6 +21,8 @@ import javax.validation.Valid;
 @Controller
 public class TeamController {
 
+    //TODO show details of selected team
+
     private final TeamService service;
 
     public TeamController(TeamService service) {

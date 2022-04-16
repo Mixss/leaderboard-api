@@ -1,18 +1,49 @@
 package org.esovisco.ligaflanek.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.esovisco.ligaflanek.auth.ApplicationUser;
+import org.esovisco.ligaflanek.auth.ApplicationUserService;
+import org.esovisco.ligaflanek.commands.SignUpCommand;
+import org.esovisco.ligaflanek.security.ApplicationUserRole;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
-@RestController
-@RequestMapping("/users")
+@Controller
 public class UserController {
 
-//    private final UserService service;
-//
-//    public UserController(UserService service) {
-//        this.service = service;
+    private final ApplicationUserService service;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserController(ApplicationUserService service, PasswordEncoder passwordEncoder) {
+        this.service = service;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @PostMapping("/register")
+    public String registerNewUser(@Valid @ModelAttribute("signUpCommand") SignUpCommand signUpCommand, BindingResult result, Model model){
+        if(result.hasErrors()) {
+            return "register";
+        }
+        try {
+            service.createUser(new ApplicationUser(
+                    signUpCommand.getUsername(),
+                    passwordEncoder.encode(signUpCommand.getPassword()),
+                    ApplicationUserRole.USER,
+                    true, true, true, true
+                    ));
+        } catch (Exception e){
+            model.addAttribute("error_message", "Username taken!");
+            return "register";
+        }
+
+
+        return "redirect:/";
+    }
+
 //    }
 //
 //    @GetMapping("/find")
