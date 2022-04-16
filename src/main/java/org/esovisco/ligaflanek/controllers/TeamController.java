@@ -47,14 +47,14 @@ public class TeamController {
     public String addTeamLogin(@Valid AddTeamCommand addTeamCommand, BindingResult result, Model model) {
         if(result.hasErrors()){
             model.addAttribute("error_message", "The name is invalid!");
-            return "add_points";
+            return "add_team";
         }
         try {
             service.addTeam(new Team(addTeamCommand.getTeamName()));
         }
         catch (IllegalArgumentException e) {
             model.addAttribute("error_message", "The name is already taken!");
-            return "add_points";
+            return "add_team";
         }
         return "redirect:/";
     }

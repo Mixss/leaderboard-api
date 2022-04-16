@@ -40,12 +40,12 @@ class TeamControllerTest {
     public void addTeamLoginNameOccupiedReturnsTheSameViewWithErrorInModel() {
         Mockito.doThrow(IllegalArgumentException.class).when(teamService).addTeam(any(Team.class));
         Mockito.doReturn(false).when(bindingResult).hasErrors();
-        assertThat(teamController.addTeamLogin(new AddTeamCommand("Team 1"), bindingResult, model)).isEqualTo("add_points");
+        assertThat(teamController.addTeamLogin(new AddTeamCommand("Team 1"), bindingResult, model)).isEqualTo("add_team");
     }
 
     @Test void addTeamLoginBadNameReturnsTheSameViewWithErrorInModel(){
         Mockito.doReturn(true).when(bindingResult).hasErrors();
-        assertThat(teamController.addTeamLogin(new AddTeamCommand("Team 1"), bindingResult, model)).isEqualTo("add_points");
+        assertThat(teamController.addTeamLogin(new AddTeamCommand("Team 1"), bindingResult, model)).isEqualTo("add_team");
     }
 
     @Test
