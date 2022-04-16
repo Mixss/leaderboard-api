@@ -5,7 +5,9 @@ import org.esovisco.ligaflanek.domain.Team;
 import org.esovisco.ligaflanek.repositories.TeamRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +15,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
+@ExtendWith(MockitoExtension.class)
 class TeamServiceTest {
 
     TeamService service;
@@ -56,7 +59,7 @@ class TeamServiceTest {
 
     @Test
     void addPointsCommandTeamNotFoundThrowsIllegalArgumentException(){
-        Mockito.doReturn(Optional.empty()).when(teamRepository).getTeamByName(any(String.class));
+        Mockito.doReturn(Optional.empty()).when(teamRepository).getTeamByName(any());
         assertThatThrownBy(() -> service.addPointsCommand(addPointsCommand)).isInstanceOf(IllegalArgumentException.class);
     }
 }

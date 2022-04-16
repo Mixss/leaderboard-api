@@ -11,7 +11,7 @@ import static org.esovisco.ligaflanek.security.ApplicationUserPermission.*;
 
 public enum ApplicationUserRole {
     USER(Sets.newHashSet()),
-    ADMIN(Sets.newHashSet(TEAM_WRITE, TEAM_READ, POINTS_WRITE));
+    ADMIN(Sets.newHashSet(TEAM_WRITE, TEAM_READ, POINTS_WRITE, USERS_READ, USERS_WRITE));
 
     @Getter
     private final Set<ApplicationUserPermission> permissions;
