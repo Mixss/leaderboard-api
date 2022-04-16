@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Scoreboard</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Nazwa</th>
+        <th>Punkty</th>
+    </tr>
+    <tr th:each="team : ${teams}">
+        <th th:text="${team.id}">Id</th>
+        <th th:text="${team.name}">Nazwa</th>
+        <th th:text="${team.points}">Punkty</th>
+    </tr>
+</table>
+<a href="add/">Dodaj punkty</a>
+</body>
+</html>
