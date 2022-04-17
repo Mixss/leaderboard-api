@@ -15,6 +15,8 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
+    // TODO add user role management
+
     private final ApplicationUserService service;
     private final PasswordEncoder passwordEncoder;
 

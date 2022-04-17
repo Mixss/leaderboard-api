@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ApplicationUserService implements UserDetailsService {
 
@@ -29,5 +31,13 @@ public class ApplicationUserService implements UserDetailsService {
             throw new IllegalArgumentException("Username taken!");
         }
 
+    }
+
+    public List<ApplicationUser> getAllUsers(){
+        return applicationUserDao.getAllUsers();
+    }
+
+    public ApplicationUser getUserById(Long id){
+        return applicationUserDao.getUserById(id);  //TODO try catch
     }
 }

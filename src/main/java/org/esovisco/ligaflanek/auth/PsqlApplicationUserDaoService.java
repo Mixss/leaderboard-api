@@ -3,6 +3,7 @@ package org.esovisco.ligaflanek.auth;
 import org.esovisco.ligaflanek.repositories.ApplicationUserRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository("psql")
@@ -26,5 +27,19 @@ public class PsqlApplicationUserDaoService implements ApplicationUserDao {
             throw new IllegalArgumentException("Username taken!");
         }
         repository.save(user);
+    }
+
+    @Override
+    public List<ApplicationUser> getAllUsers(){
+        return repository.findAll();
+    }
+
+    @Override
+    public ApplicationUser getUserById(Long id) {
+        Optional<ApplicationUser> optionalUser = repository.findById(id);
+        if(optionalUser.isEmpty()){
+            throw new IllegalArgumentException("User not found!");
+        }
+        return optionalUser.get();
     }
 }

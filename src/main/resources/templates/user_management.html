@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage users</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h2>Manage users</h2>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Role</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <th th:text="${user.id}">Id</th>
+            <th th:inline="text"> <a th:href="@{/management/users/{id}(id=${user.id})}"><span th:text="${user.username}"></span></a> </th>
+            <th th:text="${user.role}">Role</th>
+        </tr>
+    </table>
+</body>
+</html>

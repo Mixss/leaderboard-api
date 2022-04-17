@@ -34,6 +34,7 @@ public class ApplicationUser implements UserDetails {
     @NotNull
 
     @NotNull
+    @Getter
     private ApplicationUserRole role;
 
     @NotNull
