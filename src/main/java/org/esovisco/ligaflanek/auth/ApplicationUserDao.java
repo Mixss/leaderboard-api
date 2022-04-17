@@ -18,4 +18,6 @@ public interface ApplicationUserDao {
 
     @Transactional
     void updateUserRole(ApplicationUser user, ApplicationUserRole role);
+
+    void deleteUserById(Long id) throws IllegalArgumentException;
 }

@@ -59,4 +59,17 @@ public class UserController {
         return "redirect:/management/users/"+id;
     }
 
+    @PostMapping("/management/users/{id}/delete")
+    @PreAuthorize("hasAuthority('users:write')")
+    public String deleteUser(@PathVariable("id") Long id){
+        ApplicationUser applicationUser;
+        try {
+            applicationUser = service.getUserById(id);
+        } catch (Exception e){
+            return "redirect:/management/users";
+        }
+        service.deleteUser(id);
+        return "redirect:/management/users";
+    }
+
 }

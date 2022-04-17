@@ -45,4 +45,13 @@ public class ApplicationUserService implements UserDetailsService {
     public void updateUserRole(Long id, ApplicationUserRole role){
         applicationUserDao.updateUserRole(applicationUserDao.getUserById(id), role);
     }
+
+    public void deleteUser(Long id) {
+        try {
+            applicationUserDao.deleteUserById(id);
+        }
+        catch (IllegalArgumentException e){
+            System.err.println("Tried to delete user that doesn't exist (id="+id+")");
+        }
+    }
 }

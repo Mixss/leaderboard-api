@@ -50,4 +50,14 @@ public class PsqlApplicationUserDaoService implements ApplicationUserDao {
     public void updateUserRole(ApplicationUser user, ApplicationUserRole role) {
         user.setRole(role);
     }
+
+    @Override
+    public void deleteUserById(Long id) throws IllegalArgumentException{
+        try {
+            repository.deleteById(id);
+        } catch (Exception e){
+            throw new IllegalArgumentException("User not found!");
+        }
+
+    }
 }
