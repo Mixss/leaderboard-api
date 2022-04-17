@@ -4,12 +4,16 @@ import org.esovisco.ligaflanek.auth.ApplicationUserService;
 import org.esovisco.ligaflanek.commands.AddPointsCommand;
 import org.esovisco.ligaflanek.commands.AddTeamCommand;
 import org.esovisco.ligaflanek.commands.SignUpCommand;
+import org.esovisco.ligaflanek.commands.UpdateRoleCommand;
+import org.esovisco.ligaflanek.security.ApplicationUserRole;
 import org.esovisco.ligaflanek.services.TeamService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 public class ViewController {
@@ -61,6 +65,8 @@ public class ViewController {
     @PreAuthorize("hasAuthority('users:read')")
     public String manageUser(@PathVariable("id") Long id, Model model){
         model.addAttribute("user", applicationUserService.getUserById(id));
+        model.addAttribute("roles", List.of(ApplicationUserRole.values()));
+        model.addAttribute("updateRoleCommand", new UpdateRoleCommand());
         return "user_details";
     }
 }

@@ -1,5 +1,6 @@
 package org.esovisco.ligaflanek.auth;
 
+import org.esovisco.ligaflanek.security.ApplicationUserRole;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,5 +40,9 @@ public class ApplicationUserService implements UserDetailsService {
 
     public ApplicationUser getUserById(Long id){
         return applicationUserDao.getUserById(id);  //TODO try catch
+    }
+
+    public void updateUserRole(Long id, ApplicationUserRole role){
+        applicationUserDao.updateUserRole(applicationUserDao.getUserById(id), role);
     }
 }

@@ -1,8 +1,10 @@
 package org.esovisco.ligaflanek.auth;
 
 import org.esovisco.ligaflanek.repositories.ApplicationUserRepository;
+import org.esovisco.ligaflanek.security.ApplicationUserRole;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,5 +43,11 @@ public class PsqlApplicationUserDaoService implements ApplicationUserDao {
             throw new IllegalArgumentException("User not found!");
         }
         return optionalUser.get();
+    }
+
+    @Override
+    @Transactional
+    public void updateUserRole(ApplicationUser user, ApplicationUserRole role) {
+        user.setRole(role);
     }
 }

@@ -3,7 +3,9 @@ package org.esovisco.ligaflanek.controllers;
 import org.esovisco.ligaflanek.auth.ApplicationUser;
 import org.esovisco.ligaflanek.auth.ApplicationUserService;
 import org.esovisco.ligaflanek.commands.SignUpCommand;
+import org.esovisco.ligaflanek.commands.UpdateRoleCommand;
 import org.esovisco.ligaflanek.security.ApplicationUserRole;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,37 +43,20 @@ public class UserController {
             model.addAttribute("error_message", "Username taken!");
             return "register";
         }
-
-
         return "redirect:/";
     }
 
-//    }
-//
-//    @GetMapping("/find")
-//    @PreAuthorize("hasAuthority('users:read')")
-//    public List<UserAccount> getAllUsers() {
-//        return service.getAllUsers();
-//    }
-//
-//    @GetMapping(path = "/find/{name}")
-//    @PreAuthorize("hasAuthority('users:read')")
-//    public UserAccount getUserByName(@PathVariable("name") String name){
-//        try {
-//            UserAccount user = service.getUserByName(name);
-//            return user;
-//        } catch (IllegalArgumentException e){
-//            throw new IllegalArgumentException("Did not find this user!");
-//        }
-//    }
-//
-//    @PostMapping("/add")
-//    @PreAuthorize("hasAuthority('users:write')")
-//    public void createUser(@RequestBody UserAccount user){
-//        try {
-//            service.addUser(user);
-//        } catch (IllegalArgumentException e){
-//            throw new IllegalArgumentException("Couldn't create this user!");
-//        }
-//    }
+    @PostMapping("/management/users/{id}/update_role")
+    @PreAuthorize("hasAuthority('users:write')")
+    public String updateUserRole(@ModelAttribute("updateRoleCommand") UpdateRoleCommand updateRoleCommand, @PathVariable("id") Long id){
+        ApplicationUser applicationUser;
+        try {
+            applicationUser = service.getUserById(id);
+        } catch (Exception e){
+            return "redirect:/management/users";
+        }
+        service.updateUserRole(id, updateRoleCommand.getSelectedRole());
+        return "redirect:/management/users/"+id;
+    }
+
 }

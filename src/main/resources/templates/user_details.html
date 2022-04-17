@@ -5,7 +5,16 @@
     <title>User's page</title>
 </head>
 <body>
-<h1 th:text="${user.username}"></h1>
-Role: <span th:text="${user.role}"></span>
+    <h1 th:text="${user.username}"></h1>
+    Role: <b><span th:text="${user.role}"></span></b>
+
+    <form th:object="${updateRoleCommand}" method="post" th:action="@{/management/users/{id}/update_role(id=${user.id})}">
+        Set new role:
+        <select name="newrole" id="newrole" th:field="*{selectedRole}">
+            <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name}" >Role</option>
+        </select>
+        <button type="submit">Update Role</button>
+    </form>
+
 </body>
 </html>
