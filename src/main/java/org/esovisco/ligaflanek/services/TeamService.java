@@ -3,9 +3,11 @@ package org.esovisco.ligaflanek.services;
 import org.esovisco.ligaflanek.commands.AddPointsCommand;
 import org.esovisco.ligaflanek.domain.Team;
 import org.esovisco.ligaflanek.repositories.TeamRepository;
+import org.esovisco.ligaflanek.utils.TeamComparator;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +21,9 @@ public class TeamService {
     }
 
     public List<Team> getTeams() {
-        return repository.findAll();
+        List<Team> teams = repository.findAll();
+        teams.sort(new TeamComparator());
+        return teams;
     }
 
     public void addTeam(Team team) throws IllegalArgumentException{
