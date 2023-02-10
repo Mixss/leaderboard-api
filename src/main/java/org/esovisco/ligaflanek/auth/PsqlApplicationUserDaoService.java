@@ -2,6 +2,7 @@ package org.esovisco.ligaflanek.auth;
 
 import org.esovisco.ligaflanek.repositories.ApplicationUserRepository;
 import org.esovisco.ligaflanek.security.ApplicationUserRole;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,7 @@ public class PsqlApplicationUserDaoService implements ApplicationUserDao {
     }
 
     @Override
-    public void addUser(ApplicationUser user) {
+    public void addUser(ApplicationUser user) throws IllegalArgumentException {
         Optional<ApplicationUser> optionalUser = repository.findByName(user.getUsername());
         if(optionalUser.isPresent()){
             throw new IllegalArgumentException("Username taken!");
@@ -37,7 +38,7 @@ public class PsqlApplicationUserDaoService implements ApplicationUserDao {
     }
 
     @Override
-    public ApplicationUser getUserById(Long id) {
+    public ApplicationUser getUserById(Long id) throws IllegalArgumentException{
         Optional<ApplicationUser> optionalUser = repository.findById(id);
         if(optionalUser.isEmpty()){
             throw new IllegalArgumentException("User not found!");

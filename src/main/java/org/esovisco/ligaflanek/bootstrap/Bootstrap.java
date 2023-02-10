@@ -28,7 +28,7 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Bootstrap is working...");
         teamService.addTeam(new Team("Esovisco"));
-        teamService.addTeam(new Team("Apki Flanki"));
+        teamService.addTeam(new Team("Beasts"));
 
         applicationUserService.createUser(new ApplicationUser(
                 "admin",
