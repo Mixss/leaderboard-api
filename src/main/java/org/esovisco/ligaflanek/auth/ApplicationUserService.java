@@ -39,7 +39,12 @@ public class ApplicationUserService implements UserDetailsService {
     }
 
     public ApplicationUser getUserById(Long id){
-        return applicationUserDao.getUserById(id);  //TODO try catch
+        try {
+            ApplicationUser user = applicationUserDao.getUserById(id);
+            return user;
+        } catch (IllegalArgumentException e){
+            throw new UsernameNotFoundException("User with id "+id+" not found");
+        }
     }
 
     public void updateUserRole(Long id, ApplicationUserRole role){
